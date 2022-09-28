@@ -1,11 +1,13 @@
-mod my_encryptor;
-mod my_file_controller;
-mod my_data_base;
+mod modules{
+    pub mod database;
+    pub mod file_controller;
+    pub mod encryptor;
+}
 
 use std::io;
-use my_encryptor::encryptor::Encryptor;
-use my_file_controller::file_controller::FileController;
-use my_data_base::database::DataBase;
+use modules::encryptor::Encryptor;
+use modules::file_controller::FileController;
+use modules::database::DataBase;
 
 fn main() {
 

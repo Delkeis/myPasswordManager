@@ -1,3 +1,7 @@
+
+use crate::Encryptor;
+use crate::my_get_user_input;
+
 pub struct DataBase {
     _data: Vec<String>,
 
