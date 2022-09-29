@@ -1,4 +1,5 @@
 use std::fs::File;
+use std::io::Write;
 use std::path::Path;
 use std::io::BufReader;
 use std::io::BufRead;
@@ -7,10 +8,16 @@ pub struct FileController{
     _file: File,
 }
 
-impl FileController{
+pub trait TraitFile {
+    fn new(path_str:String) -> Self;
+    fn unload_file(self) -> Vec<String>;
+    fn load_file_from_string(self, str: String);
+}
+
+impl TraitFile for FileController{
 
     // Constructor
-    pub fn new(path_str: String) -> Self {
+    fn new(path_str: String) -> Self {
 
         let path = Path::new(&path_str);
         let mut _file_desc: File = match File::open(path){
@@ -27,11 +34,10 @@ impl FileController{
             },
         };
     }
-
-
+    
     // on décharge le contenu du fichier et on retourne une liste
     // de type Vector<String>
-    pub fn unload_file(self) -> Vec<String> {
+    fn unload_file(self) -> Vec<String> {
         let mut tab: Vec<String> = Vec::new();
         let mut buffer = BufReader::new(self._file);
         let mut s: String = String::new();
@@ -56,5 +62,12 @@ impl FileController{
             }
         }
         return tab;
+    }
+
+    fn load_file_from_string(mut self, str: String){
+        match self._file.write_all(str.as_bytes()) {
+            Ok(_) => return,
+            Err(why) => panic!("Error {}", why)
+        }
     }
 }

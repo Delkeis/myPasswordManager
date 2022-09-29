@@ -80,6 +80,24 @@ impl DataBase{
         }
     }
 
+    pub fn unload_data_in_string(self) -> String {
+        let mut buff: String = String::new();
+        for i in 0..self._website.len(){
+
+            buff.push_str(self._website[i].as_str());
+            buff.push(' ');
+            buff.push_str(self._username[i].as_str());
+            buff.push(' ');
+            buff.push_str(self._password[i].as_str());
+            buff.push(' ');
+            buff.push_str(self._comment[i].as_str());
+            if i < self._website.len() {
+                buff.push('\n');
+            }
+        }
+        return buff;
+    }
+
     ///////////////////////////////////////////////////////////////
     /// 
     ///                     PRIVATE
@@ -96,5 +114,4 @@ impl DataBase{
             self.add_new_data(dat.to_string());
         }
     }
-
 }

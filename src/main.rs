@@ -6,23 +6,29 @@ mod modules{
 
 use std::io;
 use modules::encryptor::Encryptor;
-use modules::file_controller::FileController;
+use modules::file_controller::{FileController, TraitFile};
 use modules::database::DataBase;
 
 fn main() {
-
-    let file_controller: FileController = FileController::new("./pass".to_string());
+    // creation database controller et le path du fichier de sauvegarde
+    let path: String = String::from("./pass");
     let mut data_base: DataBase = DataBase::new();
 
+    //création d'un file controller pour récupérer le contenue du fichier de sauvegarde 
+    let file_controller: FileController = FileController::new(path.clone());
     data_base.add_new_dataset(file_controller.unload_file());
 
-    //data_base.clone().print_data_base();
+    //debug 
+    data_base.clone().print_loud_data_base();
 
-    data_base.print_loud_data_base();
+    // création d'un file controller pour écrire dans le fichier de sauvegarde
+    let file_controller = FileController::new(path);
+    file_controller.load_file_from_string(data_base.clone().unload_data_in_string());
 }
 
 
 //////////////////////////////////////////////////
+/// 
 /// Outils généraux 
 /// 
 //////////////////////////////////////////////////
