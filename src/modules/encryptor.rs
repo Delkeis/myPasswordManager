@@ -1,5 +1,6 @@
 use magic_crypt::MagicCryptTrait;
 
+#[derive(Clone)]
 pub struct Encryptor{
     master_password: String,
 }

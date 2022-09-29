@@ -11,19 +11,14 @@ use modules::database::DataBase;
 
 fn main() {
 
-    let req = String::from("Password");
-    let enc = Encryptor::new(my_get_user_input(req));
-
-    println!("{}", enc.crypt_str(String::from("BITE")));
-
     let file_controller: FileController = FileController::new("./pass".to_string());
     let mut data_base: DataBase = DataBase::new();
 
     data_base.add_new_dataset(file_controller.unload_file());
 
-    data_base.print_data_base();
+    //data_base.clone().print_data_base();
 
-
+    data_base.print_loud_data_base();
 }
 
 
